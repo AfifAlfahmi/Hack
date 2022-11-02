@@ -19,7 +19,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         else{
             //Toast.makeText(context, "AIRPLANE MODE Off", Toast.LENGTH_SHORT).show();
             Log.d("MyBroadcastReceiver","AIRPLANE MODE Off");
-
         }
     }
 }

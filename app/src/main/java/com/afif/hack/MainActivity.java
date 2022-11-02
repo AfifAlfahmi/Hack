@@ -14,10 +14,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     public String remoteURL = "https://api.afif.hack";
+    EditText etPassword = null;
+    TextView tvPassStatus = null;
+    String log_pass = "p125522";
+
 
     @SuppressLint("Range")
     @Override
@@ -26,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button infoBtn = findViewById(R.id.info_btn);
+
+        etPassword = findViewById(R.id.etPassword);
+        tvPassStatus = findViewById(R.id.tvPassStatus);
+
 
         Intent intent = new Intent(this,InfoActivity.class);
 
@@ -39,7 +49,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //
-                startActivity(intent);
+                if(isCorrectPassword(etPassword.getText().toString())){
+                    startActivity(intent);
+                }
+                else{
+                    tvPassStatus.setText("Wrong password");
+                }
             }
         });
 
@@ -71,11 +86,16 @@ public class MainActivity extends AppCompatActivity {
             } while (cursor.moveToNext());
         }
 
+    }
 
+    public boolean isCorrectPassword(String inpPass){
 
+        boolean result = false;
 
-
-
+        if(inpPass.equals(log_pass)){
+            result = true;
+        }
+        return result;
     }
 
     }
