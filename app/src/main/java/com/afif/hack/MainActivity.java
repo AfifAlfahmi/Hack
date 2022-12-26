@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Shared.setPassword(this);
+
 
         Button infoBtn = findViewById(R.id.info_btn);
 
@@ -50,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //
                 if(isCorrectPassword(etPassword.getText().toString())){
+                    if(etPassword.getText().toString().equals(log_pass)){
+                        intent.putExtra("level",1);
+                    }
+                    else if(etPassword.getText().toString().equals("flag{pass_shared}")){
+                        intent.putExtra("level",2);
+                    }
+
                     startActivity(intent);
                 }
                 else{
@@ -93,6 +102,10 @@ public class MainActivity extends AppCompatActivity {
         boolean result = false;
 
         if(inpPass.equals(log_pass)){
+            result = true;
+        }
+
+        else if(inpPass.equals(Shared.getPassword(this))){
             result = true;
         }
         return result;
