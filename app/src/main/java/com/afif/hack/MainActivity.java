@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
         Shared.setPassword(this);
 
 
+        Log.d("AdbTag", "adb logcat test");
+
+
         Button infoBtn = findViewById(R.id.info_btn);
 
         etPassword = findViewById(R.id.etPassword);
