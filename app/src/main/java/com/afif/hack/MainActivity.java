@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d("AdbTag", "adb logcat test");
+
+
         Button infoBtn = findViewById(R.id.info_btn);
 
         Intent intent = new Intent(this,InfoActivity.class);
