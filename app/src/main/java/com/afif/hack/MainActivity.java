@@ -61,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
                     else if(etPassword.getText().toString().equals("flag{pass_shared}")){
                         intent.putExtra("level",2);
                     }
+                    else {
+                        intent.putExtra("level",3);
+                    }
 
                     startActivity(intent);
                 }
