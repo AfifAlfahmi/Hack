@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button infoBtn = findViewById(R.id.info_btn);
+        Button plainConnectionBtn = findViewById(R.id.btn_http);
+        Button secureConnectionBtn = findViewById(R.id.btn_https);
+
 
         etPassword = findViewById(R.id.etPassword);
         tvPassStatus = findViewById(R.id.tvPassStatus);
@@ -100,6 +103,20 @@ public class MainActivity extends AppCompatActivity {
 
             } while (cursor.moveToNext());
         }
+
+        // connect to remote aws server
+
+        plainConnectionBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+            }
+        });
+        secureConnectionBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
 
     }
 
