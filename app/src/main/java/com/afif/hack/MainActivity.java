@@ -9,13 +9,18 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.amplifyframework.AmplifyException;
+import com.amplifyframework.api.aws.AWSApiPlugin;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.AWSDataStorePlugin;
+import com.amplifyframework.datastore.generated.model.Todo;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,40 +42,37 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button infoBtn = findViewById(R.id.info_btn);
-        Button plainConnectionBtn = findViewById(R.id.btn_http);
         Button secureConnectionBtn = findViewById(R.id.btn_https);
+        Button sslConnectionBtn = findViewById(R.id.btn_ssl);
 
 
         etPassword = findViewById(R.id.etPassword);
         tvPassStatus = findViewById(R.id.tvPassStatus);
 
 
-        Intent intent = new Intent(this,InfoActivity.class);
+        Intent intent = new Intent(this, InfoActivity.class);
 
-        Intent serviceIntent = new Intent(this,MyService.class);
+        Intent serviceIntent = new Intent(this, MyService.class);
 
-       //startService(serviceIntent);
+        //startService(serviceIntent);
 
 
-        infoBtn.setOnClickListener(new View.OnClickListener(){
+        infoBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 //
-                if(isCorrectPassword(etPassword.getText().toString())){
-                    if(etPassword.getText().toString().equals(log_pass)){
-                        intent.putExtra("level",1);
-                    }
-                    else if(etPassword.getText().toString().equals("flag{pass_shared}")){
-                        intent.putExtra("level",2);
-                    }
-                    else {
-                        intent.putExtra("level",3);
+                if (isCorrectPassword(etPassword.getText().toString())) {
+                    if (etPassword.getText().toString().equals(log_pass)) {
+                        intent.putExtra("level", 1);
+                    } else if (etPassword.getText().toString().equals("flag{pass_shared}")) {
+                        intent.putExtra("level", 2);
+                    } else {
+                        intent.putExtra("level", 3);
                     }
 
                     startActivity(intent);
-                }
-                else{
+                } else {
                     tvPassStatus.setText("Wrong password");
                 }
             }
@@ -82,12 +84,12 @@ public class MainActivity extends AppCompatActivity {
 
         filter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
 
-        registerReceiver(broadcastReceiver,filter);
+        registerReceiver(broadcastReceiver, filter);
 
 
         ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.CONTACT_NAME,"Afif");
-        values.put(DatabaseHelper.PHONE_NUM,"000000000001");
+        values.put(DatabaseHelper.CONTACT_NAME, "Afif");
+        values.put(DatabaseHelper.PHONE_NUM, "000000000001");
 
         // Insert a new contact
 
@@ -97,41 +99,45 @@ public class MainActivity extends AppCompatActivity {
         Cursor cursor = getContentResolver().query(MyContentProvider.CONTENT_URI, null, null, null, null);
 
         if (cursor.moveToFirst()) {
-            do{
-                Log.d("content_provider", "Contact name: "+cursor.getString(cursor.getColumnIndex(DatabaseHelper.CONTACT_NAME)));
-                Log.d("content_provider", "Phone num: "+cursor.getString(cursor.getColumnIndex(DatabaseHelper.PHONE_NUM)));
+            do {
+                Log.d("content_provider", "Contact name: " + cursor.getString(cursor.getColumnIndex(DatabaseHelper.CONTACT_NAME)));
+                Log.d("content_provider", "Phone num: " + cursor.getString(cursor.getColumnIndex(DatabaseHelper.PHONE_NUM)));
 
             } while (cursor.moveToNext());
         }
 
+
         // connect to remote aws server
 
-        plainConnectionBtn.setOnClickListener(new View.OnClickListener(){
+        secureConnectionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Connection.getInfo();
             }
         });
-        secureConnectionBtn.setOnClickListener(new View.OnClickListener(){
+
+        sslConnectionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Connection.getInfoSSl();
             }
         });
 
 
     }
 
-    public boolean isCorrectPassword(String inpPass){
+    public boolean isCorrectPassword(String inpPass) {
 
         boolean result = false;
 
-        if(inpPass.equals(log_pass)){
+        if (inpPass.equals(log_pass)) {
             result = true;
-        }
-
-        else if(inpPass.equals(Shared.getPassword(this))){
+        } else if (inpPass.equals(Shared.getPassword(this))) {
             result = true;
         }
         return result;
     }
 
-    }
+}
