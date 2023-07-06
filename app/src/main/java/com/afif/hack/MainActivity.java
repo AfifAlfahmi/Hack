@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 }
         });
 
+
         BroadcastReceiver broadcastReceiver = new MyBroadcastReceiver();
 
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
@@ -54,30 +55,6 @@ public class MainActivity extends AppCompatActivity {
         filter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
 
         registerReceiver(broadcastReceiver,filter);
-
-
-        ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.CONTACT_NAME,"Afif");
-        values.put(DatabaseHelper.PHONE_NUM,"000000000001");
-
-
-        // Insert a new contact
-
-
-        getContentResolver().insert(MyContentProvider.CONTENT_URI, values);
-        // Retrieve all contacts records and print it to the logcat
-
-
-        Cursor cursor = getContentResolver().query(MyContentProvider.CONTENT_URI, null, null, null, null);
-
-
-        if (cursor.moveToFirst()) {
-            do{
-                Log.d("content_provider", "Contact name: "+cursor.getString(cursor.getColumnIndex(DatabaseHelper.CONTACT_NAME)));
-                Log.d("content_provider", "Phone num: "+cursor.getString(cursor.getColumnIndex(DatabaseHelper.PHONE_NUM)));
-
-            } while (cursor.moveToNext());
-        }
 
     }
 

@@ -17,14 +17,6 @@
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
 
-        <provider
-            android:name=".MyContentProvider"
-            android:authorities="com.example.contact.provider"
-            android:enabled="true"
-            android:exported="true">
-
-        </provider>
-
         <activity
             android:name=".InfoActivity"
             android:exported="false" />
@@ -40,9 +32,11 @@
 
         <service android:name=".MyService" />
 
+
         <receiver
             android:name=".MyBroadcastReceiver"
             android:exported="false" />
+
     </application>
 
 </manifest>
