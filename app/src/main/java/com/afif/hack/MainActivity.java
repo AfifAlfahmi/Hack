@@ -27,24 +27,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         Button infoBtn = findViewById(R.id.info_btn);
-
 
         Intent intent = new Intent(this,InfoActivity.class);
 
-        Intent serviceIntent = new Intent(this,MyService.class);
-
-        startService(serviceIntent);
-
-
         infoBtn.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View view) {
+
                     startActivity(intent);
-                }
+
+            }
         });
 
     }
