@@ -19,10 +19,6 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    public String remoteURL = "https://api.afif.hack";
-    EditText etPassword = null;
-    TextView tvPassStatus = null;
-    String log_pass = "p125522";
 
 
     @SuppressLint("Range")
@@ -30,16 +26,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Shared.setPassword(this);
 
-
-        Log.d("AdbTag", "adb logcat test");
 
 
         Button infoBtn = findViewById(R.id.info_btn);
-
-        etPassword = findViewById(R.id.etPassword);
-        tvPassStatus = findViewById(R.id.tvPassStatus);
 
 
         Intent intent = new Intent(this,InfoActivity.class);
@@ -53,24 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                //
-                if(isCorrectPassword(etPassword.getText().toString())){
-                    if(etPassword.getText().toString().equals(log_pass)){
-                        intent.putExtra("level",1);
-                    }
-                    else if(etPassword.getText().toString().equals("flag{pass_shared}")){
-                        intent.putExtra("level",2);
-                    }
-                    else {
-                        intent.putExtra("level",3);
-                    }
-
                     startActivity(intent);
                 }
-                else{
-                    tvPassStatus.setText("Wrong password");
-                }
-            }
         });
 
         BroadcastReceiver broadcastReceiver = new MyBroadcastReceiver();
@@ -103,18 +77,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public boolean isCorrectPassword(String inpPass){
 
-        boolean result = false;
-
-        if(inpPass.equals(log_pass)){
-            result = true;
-        }
-
-        else if(inpPass.equals(Shared.getPassword(this))){
-            result = true;
-        }
-        return result;
-    }
 
     }

@@ -10,17 +10,12 @@ import android.widget.TextView;
 
 public class InfoActivity extends AppCompatActivity {
 
-    TextView tvFlag  = null;
-    int level = 0;
 
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
-        tvFlag = findViewById(R.id.tvFlag);
-        showFlag();
-
         Log.d("lifecycle","onCreate");
 
     }
@@ -56,14 +51,6 @@ public class InfoActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d("lifecycle","onDestroy");
-
-    }
-    protected void showFlag(){
-        level  = getIntent().getIntExtra("level",0);
-        String congMessage = "Congratulations\n you have solved the challenge level "+level;
-
-        tvFlag.setText(congMessage);
-        tvFlag.setTextColor(Color.parseColor("#00A300"));
     }
 
 }
