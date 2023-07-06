@@ -16,12 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.amplifyframework.AmplifyException;
-import com.amplifyframework.api.aws.AWSApiPlugin;
-import com.amplifyframework.core.Amplify;
-import com.amplifyframework.datastore.AWSDataStorePlugin;
-import com.amplifyframework.datastore.generated.model.Todo;
-
 public class MainActivity extends AppCompatActivity {
 
     public String remoteURL = "https://api.afif.hack";
@@ -65,9 +59,18 @@ public class MainActivity extends AppCompatActivity {
                 if (isCorrectPassword(etPassword.getText().toString())) {
                     if (etPassword.getText().toString().equals(log_pass)) {
                         intent.putExtra("level", 1);
-                    } else if (etPassword.getText().toString().equals("flag{pass_shared}")) {
+                    }
+                    else if (etPassword.getText().toString().equals("flag{pass_shared}")) {
                         intent.putExtra("level", 2);
-                    } else {
+                    }
+                    else if (etPassword.getText().toString().equals("hack_flag{intercept_https}")) {
+                        intent.putExtra("level", 4);
+                    }
+
+                    else if (etPassword.getText().toString().equals("hack_flag{bypass_ssl}")) {
+                        intent.putExtra("level", 5);
+                    }
+                    else {
                         intent.putExtra("level", 3);
                     }
 
@@ -113,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Connection.getInfo();
+                Connection.getInfo(getApplicationContext());
             }
         });
 
@@ -121,7 +124,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Connection.getInfoSSl();
+                try {
+                    Connection.getInfoSSL(getApplicationContext());
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -132,9 +139,8 @@ public class MainActivity extends AppCompatActivity {
 
         boolean result = false;
 
-        if (inpPass.equals(log_pass)) {
-            result = true;
-        } else if (inpPass.equals(Shared.getPassword(this))) {
+        if (inpPass.equals(log_pass) || inpPass.equals(Shared.getPassword(this))
+        || inpPass.equals("hack_flag{intercept_https}") || inpPass.equals("hack_flag{bypass_ssl}")) {
             result = true;
         }
         return result;

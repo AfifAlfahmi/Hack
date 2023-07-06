@@ -8,4 +8,7 @@ public interface RemoteApi {
 
     @GET("info")
     Call<Info> getInfo();
+
+    @GET("infossl")
+    Call<Info> getInfoSSL();
 }
