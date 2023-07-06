@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent serviceIntent = new Intent(this,MyService.class);
 
-       //startService(serviceIntent);
+        startService(serviceIntent);
 
 
         infoBtn.setOnClickListener(new View.OnClickListener(){
@@ -46,15 +46,6 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
         });
-
-
-        BroadcastReceiver broadcastReceiver = new MyBroadcastReceiver();
-
-        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-
-        filter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
-
-        registerReceiver(broadcastReceiver,filter);
 
     }
 

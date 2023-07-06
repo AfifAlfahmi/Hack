@@ -30,12 +30,9 @@
             </intent-filter>
         </activity>
 
+
         <service android:name=".MyService" />
 
-
-        <receiver
-            android:name=".MyBroadcastReceiver"
-            android:exported="false" />
 
     </application>
 

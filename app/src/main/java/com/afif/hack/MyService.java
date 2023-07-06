@@ -12,11 +12,13 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+
 public class MyService extends Service {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
 
         new Thread(() -> {
             try {
@@ -31,12 +33,14 @@ public class MyService extends Service {
 
         }).start();
 
+
         final String CHANNELID = "Service ID";
         NotificationChannel channel = new NotificationChannel(
                 CHANNELID,
                 CHANNELID,
                 NotificationManager.IMPORTANCE_LOW
         );
+
 
         getSystemService(NotificationManager.class).createNotificationChannel(channel);
         Notification notification = new Notification.Builder(this, CHANNELID)
