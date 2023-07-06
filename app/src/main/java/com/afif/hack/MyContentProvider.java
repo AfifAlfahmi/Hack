@@ -12,9 +12,11 @@ import android.net.Uri;
 
 import java.util.HashMap;
 
+
 public class MyContentProvider extends ContentProvider {
 
     private SQLiteDatabase db;
+
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static final String PROVIDER_NAME = "com.example.contact.provider";

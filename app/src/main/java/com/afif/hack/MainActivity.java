@@ -60,12 +60,16 @@ public class MainActivity extends AppCompatActivity {
         values.put(DatabaseHelper.CONTACT_NAME,"Afif");
         values.put(DatabaseHelper.PHONE_NUM,"000000000001");
 
+
         // Insert a new contact
+
 
         getContentResolver().insert(MyContentProvider.CONTENT_URI, values);
         // Retrieve all contacts records and print it to the logcat
 
+
         Cursor cursor = getContentResolver().query(MyContentProvider.CONTENT_URI, null, null, null, null);
+
 
         if (cursor.moveToFirst()) {
             do{
