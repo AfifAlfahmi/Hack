@@ -7,6 +7,8 @@ import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -54,16 +56,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //
+
                 if(isCorrectPassword(etPassword.getText().toString())){
-                    if(etPassword.getText().toString().equals(log_pass)){
-                        intent.putExtra("level",1);
-                    }
-                    else if(etPassword.getText().toString().equals("flag{pass_shared}")){
+
+                    if(etPassword.getText().toString().equals(Shared.getPassword(getApplicationContext()))){
                         intent.putExtra("level",2);
                     }
-                    else {
-                        intent.putExtra("level",3);
+                     else if (getAppVersion() == 20200) {
+                         intent.putExtra("level",3);
+                     }
+                    else{
+                        intent.putExtra("level",1);
                     }
+
 
                     startActivity(intent);
                 }
@@ -115,6 +120,20 @@ public class MainActivity extends AppCompatActivity {
             result = true;
         }
         return result;
+    }
+
+    public int getAppVersion(){
+        int versionCode = 0 ;
+        PackageManager pm = getApplicationContext().getPackageManager();
+        String pkgName = getApplicationContext().getPackageName();
+        PackageInfo pkgInfo = null;
+        try {
+            pkgInfo = pm.getPackageInfo(pkgName, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+         versionCode = pkgInfo.versionCode;
+        return versionCode;
     }
 
     }
