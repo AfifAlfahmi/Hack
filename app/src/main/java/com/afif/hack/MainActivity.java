@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Shared.setPassword(this);
 
-
         Button infoBtn = findViewById(R.id.info_btn);
 
         etPassword = findViewById(R.id.etPassword);
@@ -50,15 +50,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                //
+
+
                 if(isCorrectPassword(etPassword.getText().toString())){
                     if(etPassword.getText().toString().equals(log_pass)){
                         intent.putExtra("level",1);
                     }
-                    else if(etPassword.getText().toString().equals("flag{pass_shared}")){
+                    else if(etPassword.getText().toString().equals(Shared.getPassword(getApplicationContext()))){
                         intent.putExtra("level",2);
                     }
-
                     startActivity(intent);
                 }
                 else{
