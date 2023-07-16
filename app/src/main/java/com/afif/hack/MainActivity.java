@@ -53,11 +53,12 @@ public class MainActivity extends AppCompatActivity {
 
 
                 if(isCorrectPassword(etPassword.getText().toString())){
-                    if(etPassword.getText().toString().equals(log_pass)){
-                        intent.putExtra("level",1);
-                    }
-                    else if(etPassword.getText().toString().equals(Shared.getPassword(getApplicationContext()))){
+
+                     if(etPassword.getText().toString().equals(Shared.getPassword(getApplicationContext()))){
                         intent.putExtra("level",2);
+                    }
+                    else {
+                        intent.putExtra("level",1);
                     }
                     startActivity(intent);
                 }
