@@ -7,6 +7,8 @@ import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -15,6 +17,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.InvalidParameterSpecException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,26 +68,29 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+
                 //
                 if (isCorrectPassword(etPassword.getText().toString())) {
-                    if (etPassword.getText().toString().equals(log_pass)) {
-                        intent.putExtra("level", 1);
+
+                    if(etPassword.getText().toString().equals(Shared.getPassword(getApplicationContext()))){
+                        intent.putExtra("level",2);
                     }
-                    else if (etPassword.getText().toString().equals("flag{pass_shared}")) {
-                        intent.putExtra("level", 2);
+                    else if (getAppVersion() == 20200 || getAppVersion() == 20300) {
+                        intent.putExtra("level",3);
                     }
-                    else if (etPassword.getText().toString().equals("hack_flag{intercept_https}")) {
+                    else if (etPassword.getText().toString().equals(Utils.getFlag4())) {
                         intent.putExtra("level", 4);
                     }
 
-                    else if (etPassword.getText().toString().equals("hack_flag{bypass_ssl}")) {
+                    else if (etPassword.getText().toString().equals(Utils.getFlag5())) {
                         intent.putExtra("level", 5);
                     }
-                    else {
-                        intent.putExtra("level", 3);
+                    else{
+                        intent.putExtra("level",1);
                     }
 
                     startActivity(intent);
+
                 } else {
                     tvPassStatus.setText("Wrong password");
                 }
@@ -138,12 +154,26 @@ public class MainActivity extends AppCompatActivity {
     public boolean isCorrectPassword(String inpPass) {
 
         boolean result = false;
-
         if (inpPass.equals(log_pass) || inpPass.equals(Shared.getPassword(this))
-        || inpPass.equals("hack_flag{intercept_https}") || inpPass.equals("hack_flag{bypass_ssl}")) {
+        || inpPass.equals(Utils.getFlag4()) || inpPass.equals(Utils.getFlag5())) {
             result = true;
         }
         return result;
     }
+
+    public int getAppVersion(){
+        int versionCode = 0 ;
+        PackageManager pm = getApplicationContext().getPackageManager();
+        String pkgName = getApplicationContext().getPackageName();
+        PackageInfo pkgInfo = null;
+        try {
+            pkgInfo = pm.getPackageInfo(pkgName, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        versionCode = pkgInfo.versionCode;
+        return versionCode;
+    }
+
 
 }
