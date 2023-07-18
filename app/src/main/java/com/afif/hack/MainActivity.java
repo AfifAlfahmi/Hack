@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     if(etPassword.getText().toString().equals(Shared.getPassword(getApplicationContext()))){
                         intent.putExtra("level",2);
                     }
-                    else if (getAppVersion() == 20200 || getAppVersion() == 20300) {
+                    else if ((getAppVersion() == 20200 || getAppVersion() == 20300) && !etPassword.getText().toString().equals(log_pass)) {
                         intent.putExtra("level",3);
                     }
                     else if (etPassword.getText().toString().equals(Utils.getFlag4())) {
