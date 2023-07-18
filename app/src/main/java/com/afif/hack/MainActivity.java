@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //
                 if(isCorrectPassword(etPassword.getText().toString())){
+                    intent.putExtra("level",1);
                     startActivity(intent);
                 }
                 else{
