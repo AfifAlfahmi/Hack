@@ -131,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
         secureConnectionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("HTTP","onClick action ");
+
 
                 Connection.getInfo(getApplicationContext());
             }

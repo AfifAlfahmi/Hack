@@ -48,13 +48,13 @@ public class Connection {
             @Override
 
             public void onResponse(Call<Info> call, Response<Info> response) {
-
+                Log.d("HTTP","onResponse getInfo:");
                 Info res = (Info) response.body();
             }
 
             @Override
             public void onFailure(Call<Info> call, Throwable t) {
-                Log.d("HTTP","onFailure "+t.getMessage());
+                Log.d("HTTP","onFailure getInfo: "+t.getMessage());
                 Toast.makeText(context,"request failed "+t.getMessage(),Toast.LENGTH_LONG).show();
 
             }
@@ -93,7 +93,7 @@ public class Connection {
 
             @Override
             public void onFailure(Call<Info> call, Throwable t) {
-                Log.d("HTTP","onFailure "+t.getMessage());
+                Log.d("HTTP","onFailure getInfoSSL:"+t.getMessage());
                 Toast.makeText(context,"request failed "+t.getMessage(),Toast.LENGTH_LONG).show();
 
             }
