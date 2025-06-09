@@ -1,13 +1,20 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext {
+        agp_version = '8.0.0'
+        agp_version1 = '8.10.0'
+        agp_version2 = '8.8.0'
+        agp_version3 = '8.6.0'
+        agp_version4 = agp_version1
+    }
     repositories {
         google()
         jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath "com.android.tools.build:gradle:$agp_version4"
 
         // Add this line into `dependencies` in `buildscript`
         classpath 'com.amplifyframework:amplify-tools-gradle-plugin:1.0.2'
