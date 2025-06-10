@@ -68,7 +68,7 @@ public class Connection {
     public static void getInfoSSL(Context context) throws Exception {
 
         CertificatePinner certificatePinner = new CertificatePinner.Builder()
-                .add("api.afifhack.link", "sha256/HyiS4ywppV3Y46jJp3yBfVtdfrI0daAIcbfV2+TmOiw=")
+                .add("api.afifhack.link", "sha256/C9HSXxS4xMCoyAY9jQAdZQrOKEn/D0L6kFFhbS75K54=")
                 .build();
         OkHttpClient.Builder httpBuilder = new OkHttpClient.Builder();
         final OkHttpClient client = httpBuilder.certificatePinner(certificatePinner).build();
